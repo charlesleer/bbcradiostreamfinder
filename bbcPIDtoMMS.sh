@@ -8,7 +8,7 @@ echo "[*] Grabbing playlist for $pid"
 wget -O $pid.xml http://www.bbc.co.uk/iplayer/playlist/$pid >/dev/null 2>&1
 xmlraw=$(cat $pid.xml | awk '/mediator identifier/')
 showid=$(echo $xmlraw | cut -c23-30)
-echo "[*] Scrapping for stream link"
+echo "[*] Scraping for stream link"
 wget -O $showid.raw http://bbc.co.uk/mediaselector/4/asx/$showid/iplayer_intl_stream_wma_lo_concrete >/dev/null 2>&1
 urlraw=$(sed -n '8p' $showid.raw)
 echo $urlraw | cut -c 12- | awk 'sub("...$", "")' >$showid.asx
